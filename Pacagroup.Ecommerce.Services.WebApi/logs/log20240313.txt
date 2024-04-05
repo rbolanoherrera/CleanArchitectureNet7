@@ -1,0 +1,9 @@
+13/03/2024 3:38:30 p. m.:: entro a autenticarse 13/03/2024 3:38:30 p. m.
+13/03/2024 3:38:55 p. m.:: entro a metodo GetAll
+13/03/2024 6:01:18 p. m.:: entro a autenticarse 13/03/2024 6:01:18 p. m.
+13/03/2024 6:01:47 p. m.:: entro a metodo GetAllAsync
+13/03/2024 6:04:51 p. m.:: entro a autenticarse 13/03/2024 6:04:51 p. m.
+13/03/2024 6:08:10 p. m.:: entro a autenticarse 13/03/2024 6:08:10 p. m.
+13/03/2024 6:09:40 p. m.:: entro a autenticarse 13/03/2024 6:09:40 p. m.
+13/03/2024 6:12:03 p. m.:: entro a autenticarse 13/03/2024 6:12:03 p. m.
+13/03/2024 6:14:45 p. m.:: entro a autenticarse 13/03/2024 6:14:45 p. m.

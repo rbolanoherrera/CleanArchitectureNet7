@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pacagroup.Ecommerce.Services.WebApi</name>
+    </assembly>
+    <members>
+        <member name="T:Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication.AuthenticationExtension">
+            <summary>
+            Metodo de exyensión para quitar toda esta configuración del archivo startup.cs
+            </summary>
+        </member>
+        <member name="M:Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication.AuthenticationExtension.AddAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Metodo de extensión para agregar la configuración de Authenticación al proyecto
+            </summary>
+            <param name="services"></param>
+            <param name="configuration"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Pacagroup.Ecommerce.Services.WebApi.Modules.Injection.InjectionExtension">
+            <summary>
+            Clase de extension para limpiar el codigo de la clase startup.cs
+            </summary>
+        </member>
+        <member name="M:Pacagroup.Ecommerce.Services.WebApi.Modules.Injection.InjectionExtension.AddInjection(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Metodo de extension para agregar las inyecciones de dependencia de los proyectos de la solución
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger.SwaggerExtension">
+            <summary>
+            Metodo de extension de swagger para quitar todo ese codigo del archivo startup.cs
+            </summary>
+        </member>
+        <member name="M:Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger.SwaggerExtension.AddSwagger(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Agregar la configuracion personalizada de Swagger al proyecto
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Pacagroup.Ecommerce.Services.WebApi.Startup">
+            <summary>
+            Clase de arranque de la App
+            </summary>
+        </member>
+        <member name="M:Pacagroup.Ecommerce.Services.WebApi.Startup.#ctor(Microsoft.Extensions.Configuration.IConfiguration)">
+            <summary>
+            Contructor de arranque de la app
+            </summary>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Pacagroup.Ecommerce.Services.WebApi.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            This method gets called by the runtime. Use this method to add services to the container
+            </summary>
+            <param name="services"></param>
+        </member>
+        <member name="M:Pacagroup.Ecommerce.Services.WebApi.Startup.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+            <summary>
+            This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+            </summary>
+            <param name="app"></param>
+            <param name="env"></param>
+        </member>
+    </members>
+</doc>
