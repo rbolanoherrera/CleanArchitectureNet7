@@ -114,3 +114,8 @@ app.UseEndpoints(endpoints =>
 });
 
 app.Run();
+
+/// <summary>
+/// esto se agrega para poder usar la clase program en el proyecto de Test
+/// </summary>
+public partial class Program { };

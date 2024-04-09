@@ -1,32 +1,20 @@
-using k8s.Models;
-using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Services.WebApi;
 
 namespace Pacagroup.Ecommerce.Application.Test
 {
     [TestClass]
     public class UsersApplicationTest
     {
-        private static IConfiguration _configuration;
-        private static IServiceScopeFactory _scopeFactory;
+        private static WebApplicationFactory<Program> _factory = null;
+        private static IServiceScopeFactory _scopeFactory = null;
 
         [ClassInitialize]
         public static void Initialize(TestContext _)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", true, true)
-                .AddEnvironmentVariables();
-
-            _configuration = builder.Build();
-
-            var startup = new Startup(_configuration);
-            var services = new ServiceCollection();
-            startup.ConfigureServices(services);
-            _scopeFactory = services.BuildServiceProvider().GetService<IServiceScopeFactory>();
-
+            _factory = new WebApplicationFactory<Program>();
+            _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         }
 
         [TestMethod]
