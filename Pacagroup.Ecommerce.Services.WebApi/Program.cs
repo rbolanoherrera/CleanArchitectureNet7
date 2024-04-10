@@ -12,9 +12,11 @@ using Pacagroup.Ecommerce.Services.WebApi.Modules.Redis;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.Watch;
 using Pacagroup.Ecommerce.Transversal.Logging;
 using Pacagroup.Ecommerce.Transversal.Mapper.Base;
 using System;
+using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,11 +29,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
 
-builder.Services.AddHealthChecks();
-//services.AddHealthChecks().AddCheck<SqlServerHealthCheck>(nameof(SqlServerHealthCheck));
-builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));
-builder.Services.AddHealthChecksUI().AddInMemoryStorage();
-
 builder.Services.AddBuilders();//del proyecto Mapper para no usar la libreria AutoMapper
 
 builder.Services.AddCors(options => options.AddPolicy(myCORSPolicy,
@@ -40,16 +37,14 @@ builder.Services.AddCors(options => options.AddPolicy(myCORSPolicy,
     .AllowAnyMethod()
 ));
 
-builder.Services.AddMvc();
-
 //services.AddJsonOptions(options =>
 //                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase
 //);
 
-builder.Services.AddLogging(options =>
-{
-    options.AddConsole();
-});
+//builder.Services.AddLogging(options =>
+//{
+//    options.AddConsole();
+//});
 
 builder.Services.AddInjection();
 
@@ -60,6 +55,12 @@ builder.Services.AddVersioning();
 builder.Services.AddSwagger();
 builder.Services.AddValidator();
 builder.Services.AddRedisCache(builder.Configuration);
+builder.Services.AddHealthChecks();
+builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));
+builder.Services.AddHealthChecksUI().AddInMemoryStorage();
+builder.Services.AddWatchDogLog(builder.Configuration);//logging and Dashboard
+
+builder.Services.AddMvc();
 
 var app = builder.Build();
 
@@ -82,10 +83,23 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-app.UseRouting();
 
-//app.MapHealthChecks("/health");
-//app.UseHealthChecks("/health");
+app.UseWatchDogExceptionLogger();//para capturar las exepciones que se generen en la aplicacion
+
+app.UseHttpsRedirection();
+//app.UseRouting();
+
+app.UseCors(myCORSPolicy);
+
+app.UseAuthentication();
+app.UseAuthorization();
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllers();
+//});
+app.MapControllers();
+
 app.UseHealthChecks("/health", new HealthCheckOptions()
 {
     Predicate = _ => true,
@@ -97,20 +111,11 @@ app.UseHealthChecksUI(config =>
     config.UIPath = "/health-ui";
 });
 
-//app.UseCors(c =>
-//{
-//    c.AllowAnyOrigin();
-//    c.AllowAnyHeader();
-//    c.AllowAnyMethod();
-//});
-app.UseCors(myCORSPolicy);
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.UseEndpoints(endpoints =>
+//para configurar el dashboard del Logging de WatchDog
+app.UseWatchDog(conf =>
 {
-    endpoints.MapControllers();
+    conf.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
+    conf.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
 });
 
 app.Run();

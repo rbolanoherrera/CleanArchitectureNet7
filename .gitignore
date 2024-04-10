@@ -1,1 +1,8 @@
 
+#D:\dev\NET\CleanArchitectureNet7\Pacagroup.Ecommerce.Services.WebApi\bin
+#D:\dev\NET\CleanArchitectureNet7\Pacagroup.Ecommerce.Services.WebApi\bin\Debug\net6.0
+#D:\dev\NET\CleanArchitectureNet7\Pacagroup.Ecommerce.Services.WebApi\bin\Debug\net6.0\runtimes
+#D:\dev\NET\CleanArchitectureNet7\Pacagroup.Ecommerce.Services.WebApi\obj
+
+**/bin
+**/obj
