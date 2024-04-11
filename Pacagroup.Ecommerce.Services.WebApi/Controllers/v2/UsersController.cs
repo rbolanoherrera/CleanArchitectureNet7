@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Pacagroup.Ecommerce.Application.DTO;
@@ -18,8 +19,9 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Controllers.v2
     /// Contoller de Usuarios del sistema
     /// </summary>
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [EnableRateLimiting("fixedWindow")]
+    [Route("api/[controller]")]
     [ApiVersion("2.0")]
     public class UsersController : Controller
     {

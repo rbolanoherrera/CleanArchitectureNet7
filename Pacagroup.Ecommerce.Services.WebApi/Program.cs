@@ -8,6 +8,7 @@ using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.RateLimiter;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Redis;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
@@ -59,6 +60,7 @@ builder.Services.AddHealthChecks();
 builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));
 builder.Services.AddHealthChecks(builder.Configuration);
 builder.Services.AddWatchDogLog(builder.Configuration);//logging and Dashboard
+builder.Services.AddRateLimiting(builder.Configuration);
 
 builder.Services.AddMvc();
 
@@ -94,6 +96,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseRateLimiter();
 
 //#pragma warning disable ASP0014 // Suggest using top level route registrations
 //app.UseEndpoints(e => { });
