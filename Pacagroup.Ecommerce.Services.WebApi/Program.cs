@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Pacagroup.Ecommerce.Infrastructure.Data;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
+using Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Redis;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
@@ -57,7 +57,7 @@ builder.Services.AddValidator();
 builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddHealthChecks();
 builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));
-builder.Services.AddHealthChecksUI().AddInMemoryStorage();
+builder.Services.AddHealthChecks(builder.Configuration);
 builder.Services.AddWatchDogLog(builder.Configuration);//logging and Dashboard
 
 builder.Services.AddMvc();
@@ -87,17 +87,17 @@ if (app.Environment.IsDevelopment())
 app.UseWatchDogExceptionLogger();//para capturar las exepciones que se generen en la aplicacion
 
 app.UseHttpsRedirection();
-//app.UseRouting();
 
 app.UseCors(myCORSPolicy);
+
+app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllers();
-//});
+//#pragma warning disable ASP0014 // Suggest using top level route registrations
+//app.UseEndpoints(e => { });
+//#pragma warning restore ASP0014 // Suggest using top level route registrations
 app.MapControllers();
 
 app.UseHealthChecks("/health", new HealthCheckOptions()

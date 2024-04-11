@@ -12,7 +12,7 @@ namespace Pacagroup.Ecommerce.Infrastructure.Data
         {
             ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
             string sqlServerConnectionString = connectionString.Invoke(serviceProvider).Result;
-            serviceCollection.AddHealthChecks().AddSqlServer(sqlServerConnectionString);
+            serviceCollection.AddHealthChecks().AddSqlServer(sqlServerConnectionString, tags: new[] { "database" });
 
             return serviceCollection;
         }
