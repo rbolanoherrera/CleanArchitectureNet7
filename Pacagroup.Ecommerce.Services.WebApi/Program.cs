@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Pacagroup.Ecommerce.Infrastructure.Data;
+using Pacagroup.Ecommerce.Persistence;
+using Pacagroup.Ecommerce.Persistence.Contexts;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
@@ -52,14 +53,15 @@ builder.Services.AddInjection();
 //LoggerText.writeLog("antes de GetValue<string>(\"Secret\")");
 
 builder.Services.AddAuthentication(builder.Configuration);
+builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddVersioning();
 builder.Services.AddSwagger();
 builder.Services.AddValidator();
 builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddHealthChecks();
-builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));
+//builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));
 builder.Services.AddHealthChecks(builder.Configuration);
-builder.Services.AddWatchDogLog(builder.Configuration);//logging and Dashboard
+//builder.Services.AddWatchDogLog(builder.Configuration);//logging and Dashboard
 builder.Services.AddRateLimiting(builder.Configuration);
 
 builder.Services.AddMvc();
@@ -86,7 +88,7 @@ if (app.Environment.IsDevelopment())
 }
 
 
-app.UseWatchDogExceptionLogger();//para capturar las exepciones que se generen en la aplicacion
+//app.UseWatchDogExceptionLogger();//para capturar las exepciones que se generen en la aplicacion
 
 app.UseHttpsRedirection();
 
@@ -116,11 +118,11 @@ app.UseHealthChecksUI(config =>
 });
 
 //para configurar el dashboard del Logging de WatchDog
-app.UseWatchDog(conf =>
-{
-    conf.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
-    conf.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
-});
+//app.UseWatchDog(conf =>
+//{
+//    conf.WatchPageUsername = builder.Configuration["WatchDog:WatchPageUsername"];
+//    conf.WatchPagePassword = builder.Configuration["WatchDog:WatchPagePassword"];
+//});
 
 app.Run();
 

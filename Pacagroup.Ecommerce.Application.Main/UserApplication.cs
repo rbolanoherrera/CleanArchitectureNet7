@@ -1,26 +1,27 @@
 ﻿using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Application.Validator;
-using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 
-namespace Pacagroup.Ecommerce.Application.Main
+namespace Pacagroup.Ecommerce.Application.UseCases
 {
     public class UserApplication : IUserApplication
     {
-        private readonly IUserDomain userDomain;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserBuilder userBuilder;
         private readonly IAppLogger<UserApplication> logger;
         private readonly UserDtoValidator userValidator;
 
-        public UserApplication(IUserDomain userDomain, 
+        public UserApplication(IUnitOfWork unitOfWork, 
             UserBuilder userBuilder, 
             IAppLogger<UserApplication> logger,
             UserDtoValidator userValidator)
         {
-            this.userDomain = userDomain;
+            _unitOfWork = unitOfWork;
             this.userBuilder = userBuilder;
             this.logger = logger;
             this.userValidator = userValidator;
@@ -42,7 +43,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                User user = userDomain.Authenticate(username, password);
+                User user = _unitOfWork.Users.Authenticate(username, password);
 
                 if (user != null)
                 {
@@ -79,7 +80,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                var users = userDomain.GetAll();
+                var users = _unitOfWork.Users.GetAll();
 
                 if (users != null)
                 {
@@ -110,7 +111,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                var users = await userDomain.GetAllAsync();
+                var users = await _unitOfWork.Users.GetAllAsync();
 
                 if (users != null)
                 {
@@ -142,7 +143,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             try
             {
                 User user = userBuilder.Convert(userDTO);
-                response.Data = userDomain.Insert(user);
+                response.Data = _unitOfWork.Users.Insert(user);
 
                 if (response.Data)
                 {
@@ -171,7 +172,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             try
             {
                 User user = userBuilder.Convert(userDTO);
-                response.Data = await userDomain.InsertASync(user);
+                response.Data = await _unitOfWork.Users.InsertAsync(user);
 
                 if (response.Data)
                 {

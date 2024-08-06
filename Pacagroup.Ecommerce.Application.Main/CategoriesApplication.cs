@@ -1,30 +1,30 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 using System.Text;
 using System.Text.Json;
 
-namespace Pacagroup.Ecommerce.Application.Main
+namespace Pacagroup.Ecommerce.Application.UseCases
 {
     public class CategoriesApplication : ICategoriesApplication
     {
-        private readonly ICategoriesDomain categoriesDomain;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly CategoriesBuilder categoriesBuilder;
         private readonly CategoriesForListBuilder categoriesForListBuilder;
         private readonly IDistributedCache distributedCache;
         private readonly IAppLogger<CategoriesApplication> logger;
         private readonly string cacheKey = "categoriesKey";
 
-        public CategoriesApplication(ICategoriesDomain categoriesDomain, 
+        public CategoriesApplication(IUnitOfWork unitOfWork, 
             CategoriesBuilder categoriesBuilder,
             CategoriesForListBuilder categoriesForListBuilder,
             IDistributedCache distributedCache,
             IAppLogger<CategoriesApplication> logger)
         {
-            this.categoriesDomain = categoriesDomain;
+            this._unitOfWork = unitOfWork;
             this.categoriesBuilder = categoriesBuilder;
             this.categoriesForListBuilder = categoriesForListBuilder;
             this.distributedCache = distributedCache;
@@ -36,7 +36,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             Response<IEnumerable<CategoriesDTO>> response = new Response<IEnumerable<CategoriesDTO>>();
             try
             {
-                var categories = categoriesDomain.GetAll();
+                var categories = _unitOfWork.Categories.GetAll();
 
 
                 if (categories != null && categories.Count() > 0)
@@ -83,7 +83,7 @@ namespace Pacagroup.Ecommerce.Application.Main
                 }
                 else
                 {
-                    var categories = categoriesDomain.GetAll();
+                    var categories = _unitOfWork.Categories.GetAll();
 
                     if (categories != null && categories.Count() > 0)
                     {

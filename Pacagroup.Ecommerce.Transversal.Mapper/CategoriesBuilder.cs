@@ -1,5 +1,5 @@
 ﻿using Pacagroup.Ecommerce.Application.DTO;
-using Pacagroup.Ecommerce.Domain.Entity;
+using Pacagroup.Ecommerce.Domain.Entities;
 using Pacagroup.Ecommerce.Transversal.Mapper.Base;
 
 namespace Pacagroup.Ecommerce.Transversal.Mapper

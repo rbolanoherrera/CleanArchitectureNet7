@@ -1,11 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Pacagroup.Ecommerce.Application.Interface;
-using Pacagroup.Ecommerce.Application.Main;
-using Pacagroup.Ecommerce.Domain.Core;
-using Pacagroup.Ecommerce.Domain.Interface;
-using Pacagroup.Ecommerce.Infrastructure.Data;
-using Pacagroup.Ecommerce.Infrastructure.Interface;
-using Pacagroup.Ecommerce.Infrastructure.Repository;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
+using Pacagroup.Ecommerce.Application.UseCases;
+using Pacagroup.Ecommerce.Persistence.Contexts;
+using Pacagroup.Ecommerce.Persistence.Repositories;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Transversal.Logging;
 
@@ -31,13 +29,10 @@ namespace Pacagroup.Ecommerce.Services.WebApi.Modules.Injection
             //LoggerText.writeLog("despues de typeof(LoggerAdapter<>)");
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddScoped<ICustomerDomain, CustomerDomain>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<ICustomerApplication, CustomerApplication>();
-            services.AddScoped<IUserDomain, UserDomain>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserApplication, UserApplication>();
-            services.AddScoped<ICategoriesDomain, CategoriesDomain>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
             services.AddScoped<ICategoriesApplication, CategoriesApplication>();
 

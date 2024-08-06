@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
-using Pacagroup.Ecommerce.Application.Interface;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 
 namespace Pacagroup.Ecommerce.Application.Test
 {
@@ -30,8 +30,8 @@ namespace Pacagroup.Ecommerce.Application.Test
             string expected = "Errores de Validación del objeto";
 
             //Act: donde se ejecuta la prueba y se obtiene el resultado
-            var result = context.Authenticate(username, password);
-            var actual = result.Message;
+            var result = context?.Authenticate(username, password);
+            var actual = result?.Message;
 
             //Assert: donde se comprueba que el resultado obtenido es el esperado
             Assert.AreEqual(expected, actual);

@@ -1,23 +1,24 @@
 ﻿using Pacagroup.Ecommerce.Application.DTO;
 using Pacagroup.Ecommerce.Application.Interface;
 using Pacagroup.Ecommerce.Domain.Entity;
-using Pacagroup.Ecommerce.Domain.Interface;
+using Pacagroup.Ecommerce.Application.Interface.Persistence;
+using Pacagroup.Ecommerce.Application.Interface.UseCases;
 using Pacagroup.Ecommerce.Transversal.Common;
 using Pacagroup.Ecommerce.Transversal.Mapper;
 
-namespace Pacagroup.Ecommerce.Application.Main
+namespace Pacagroup.Ecommerce.Application.UseCases
 {
     public class CustomerApplication : ICustomerApplication
     {
-        private readonly ICustomerDomain customerDomain;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly CustomerBuilder customerBuilder;
         private readonly IAppLogger<CustomerApplication> logger;
 
-        public CustomerApplication(ICustomerDomain customerDomain, 
+        public CustomerApplication(IUnitOfWork unitOfWork, 
             CustomerBuilder customerBuilder,
             IAppLogger<CustomerApplication> logger)
         {
-            this.customerDomain = customerDomain;
+            _unitOfWork = unitOfWork;
             this.customerBuilder = customerBuilder;
             this.logger = logger;
         }
@@ -30,7 +31,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             try
             {
                 var customer = customerBuilder.Convert(customerDTO);
-                response.Data = customerDomain.Insert(customer);
+                response.Data = _unitOfWork.Customers.Insert(customer);
                 
                 if (response.Data)
                 {
@@ -59,7 +60,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             try
             {
                 var customer = customerBuilder.Convert(customerDTO);
-                response.Data = customerDomain.Update(customer);
+                response.Data = _unitOfWork.Customers.Update(customer);
 
                 if (response.Data)
                 {
@@ -87,7 +88,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                response.Data = customerDomain.Delete(customerId);
+                response.Data = _unitOfWork.Customers.Delete(customerId);
 
                 if (response.Data)
                 {
@@ -115,7 +116,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                var customer = customerDomain.Get(customerId);
+                var customer = _unitOfWork.Customers.Get(customerId);
 
                 if (customer != null)
                 {
@@ -145,7 +146,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                var customer = customerDomain.GetAll();
+                var customer = _unitOfWork.Customers.GetAll();
 
                 if (customer != null && customer.Count() > 0)
                 {
@@ -178,7 +179,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             try
             {
                 var customer = customerBuilder.Convert(customerDTO);
-                response.Data = await customerDomain.InsertAsync(customer);
+                response.Data = await _unitOfWork.Customers.InsertAsync(customer);
 
                 if (response.Data)
                 {
@@ -207,7 +208,7 @@ namespace Pacagroup.Ecommerce.Application.Main
             try
             {
                 var customer = customerBuilder.Convert(customerDTO);
-                response.Data = await customerDomain.UpdateAsync(customer);
+                response.Data = await _unitOfWork.Customers.UpdateAsync(customer);
 
                 if (response.Data)
                 {
@@ -235,7 +236,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                response.Data = await customerDomain.DeleteAsync(customerId);
+                response.Data = await _unitOfWork.Customers.DeleteAsync(customerId);
 
                 if (response.Data)
                 {
@@ -263,7 +264,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                var customer = await customerDomain.GetAsync(customerId);
+                var customer = await _unitOfWork.Customers.GetAsync(customerId);
 
                 if (customer != null)
                 {
@@ -292,7 +293,7 @@ namespace Pacagroup.Ecommerce.Application.Main
 
             try
             {
-                var customer = await customerDomain.GetAllAsync();
+                var customer = await _unitOfWork.Customers.GetAllAsync();
 
                 if (customer != null && customer.Count() > 0)
                 {
