@@ -7,7 +7,7 @@ namespace Pacagroup.Ecommerce.Application.Validator
     {
         public UserDtoValidator()
         {
-            RuleFor(u => u.UserName).NotNull().NotEmpty().WithMessage("El Usuario no puede ser null o vacio");
+            RuleFor(u => u.UserName).NotEmpty().WithMessage("El Usuario no puede ser null o vacio");
             RuleFor(u => u.Password).NotNull().NotEmpty();
         }
     }

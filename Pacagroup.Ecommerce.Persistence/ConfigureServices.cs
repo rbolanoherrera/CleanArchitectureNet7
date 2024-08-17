@@ -21,6 +21,7 @@ namespace Pacagroup.Ecommerce.Persistence
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICategoriesRepository, CategoriesRepository>();
+            services.AddScoped<IDiscountRepository, DiscountRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
