@@ -13,5 +13,13 @@
             return response;
         }
 
+        public List<TEntity> Convert(List<TDTO> param)
+        {
+            List<TEntity> response = new List<TEntity>();
+            response = param.Select(o => Convert(o)).ToList();
+
+            return response;
+        }
+
     }
 }

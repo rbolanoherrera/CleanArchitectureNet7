@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Pacagroup.Ecommerce.Application.UseCases;
 using Pacagroup.Ecommerce.Persistence;
 using Pacagroup.Ecommerce.Persistence.Contexts;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
@@ -12,7 +13,6 @@ using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.RateLimiter;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Redis;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Validator;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Watch;
 using Pacagroup.Ecommerce.Transversal.Logging;
@@ -30,8 +30,6 @@ LoggerText.PathFile = System.Environment.CurrentDirectory + @"\logs";
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-
-builder.Services.AddBuilders();//del proyecto Mapper para no usar la libreria AutoMapper
 
 builder.Services.AddCors(options => options.AddPolicy(myCORSPolicy,
     policy => policy.WithOrigins(builder.Configuration["OriginsCORS"])
@@ -54,9 +52,9 @@ builder.Services.AddInjection();
 
 builder.Services.AddAuthentication(builder.Configuration);
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 builder.Services.AddVersioning();
 builder.Services.AddSwagger();
-builder.Services.AddValidator();
 builder.Services.AddRedisCache(builder.Configuration);
 builder.Services.AddHealthChecks();
 //builder.Services.AddMySqlServerHealthCheck(serviceProvider => MySqlServerDependencyInjection.GetConnectionString(builder.Configuration, serviceProvider, "NorthwindConnection"));

@@ -41,8 +41,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{304D978B
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Application.Test", "Pacagroup.Ecommerce.Application.Test\Pacagroup.Ecommerce.Application.Test.csproj", "{59B5D4FC-2591-4F5C-8FF9-922A39FA4EA4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Infrastructure", "Pacagroup.Ecommerce.Infrastructure\Pacagroup.Ecommerce.Infrastructure.csproj", "{C0B7B575-5B47-4C38-B938-4F4EE4FD558A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pacagroup.Ecommerce.Persistence", "Pacagroup.Ecommerce.Persistence\Pacagroup.Ecommerce.Persistence.csproj", "{4559EB9E-FDEB-4574-9BBE-AB1280F41CBF}"
 EndProject
 Global
@@ -91,10 +89,6 @@ Global
 		{59B5D4FC-2591-4F5C-8FF9-922A39FA4EA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59B5D4FC-2591-4F5C-8FF9-922A39FA4EA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59B5D4FC-2591-4F5C-8FF9-922A39FA4EA4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C0B7B575-5B47-4C38-B938-4F4EE4FD558A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C0B7B575-5B47-4C38-B938-4F4EE4FD558A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C0B7B575-5B47-4C38-B938-4F4EE4FD558A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C0B7B575-5B47-4C38-B938-4F4EE4FD558A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4559EB9E-FDEB-4574-9BBE-AB1280F41CBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4559EB9E-FDEB-4574-9BBE-AB1280F41CBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4559EB9E-FDEB-4574-9BBE-AB1280F41CBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -114,7 +108,6 @@ Global
 		{29C28432-2FF4-47AB-AD5C-D620B2712CE8} = {909D9ACB-0F7E-4459-A23F-59062602C1C8}
 		{0862CE64-FB96-4C96-91F3-BFB24A54655E} = {45AE5A20-19A5-498E-9F81-6D5CBC8AD9E1}
 		{59B5D4FC-2591-4F5C-8FF9-922A39FA4EA4} = {304D978B-7B07-493B-B174-3364003144E3}
-		{C0B7B575-5B47-4C38-B938-4F4EE4FD558A} = {A892894C-3513-4BCE-8031-22B08774C72D}
 		{4559EB9E-FDEB-4574-9BBE-AB1280F41CBF} = {A892894C-3513-4BCE-8031-22B08774C72D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
