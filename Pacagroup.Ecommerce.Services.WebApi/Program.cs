@@ -1,12 +1,11 @@
+using Asp.Versioning.ApiExplorer;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Pacagroup.Ecommerce.Application.UseCases;
 using Pacagroup.Ecommerce.Persistence;
-using Pacagroup.Ecommerce.Persistence.Contexts;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Authentication;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.HealthCheck;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Injection;
@@ -14,11 +13,8 @@ using Pacagroup.Ecommerce.Services.WebApi.Modules.RateLimiter;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Redis;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Swagger;
 using Pacagroup.Ecommerce.Services.WebApi.Modules.Versioning;
-using Pacagroup.Ecommerce.Services.WebApi.Modules.Watch;
 using Pacagroup.Ecommerce.Transversal.Logging;
-using Pacagroup.Ecommerce.Transversal.Mapper.Base;
 using System;
-using WatchDog;
 
 var builder = WebApplication.CreateBuilder(args);
 
